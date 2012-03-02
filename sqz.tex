@@ -33,7 +33,10 @@
 
 
 \section{OMC parameters}
-Table~\ref{tab:OMCparams} summarizes the OMC design parameters.
+Table~\ref{tab:OMCparams} summarizes the OMC design parameters. Note
+that the sideband transmission numbers ($T_{\mathrm{MI}}$ and
+$T_{\mathrm{SR}}$) should be doubled in practice to account for the
+existence of both upper and lower sidebands.
 
 \begin{table}
 \centering
@@ -60,7 +63,11 @@ SRC sideband power transmission & $T_{\mathrm{SR}}$ & 2.71 & $\%$ \\
 
 \section{Optical losses}
 Table~\ref{tab:losses} summarizes our optical loss budget for the
-squeezer path.
+squeezer path. We find that only 64\% of the squeezed light sent into
+the interferometer makes it to the detection PD. This optical loss
+immediately reduces the maximum possible observed squeezing from 10~dB
+to 4~dB (\textcolor{blue}{make figure!}).
+
 
 \begin{table}
 \centering
@@ -87,8 +94,8 @@ TOTAL & 63.9\% & multiplied in series \\
 
 \begin{figure}
 \begin{centering}
-\includegraphics[width=\textwidth]{/home/kadool/figures/SQZpowerbudget.pdf}
-\caption{Optical losses.}
+\includegraphics{/home/kadool/figures/SQZpowerbudget.pdf}
+\caption{Optical losses in the squeezer path.}
 \label{fig:powerbudget}
 \end{centering}
 \end{figure}
@@ -99,14 +106,14 @@ TOTAL & 63.9\% & multiplied in series \\
 The presence of both the carrier contrast defect and the RF sidebands
 in the OMC transmitted light results in jitter of the squeezing
 quadrature. Figure~\ref{fig:AMPM} provides a pictorial view of the
-role of the sidebands in modulating light at the output port. 
+role of the sidebands in modulating the fields at the output port. 
 
 \begin{figure}
 \begin{centering}
 \includegraphics{/home/kadool/figures/AMPM.pdf}
 \caption{The RF sidebands (SB+ and SB-) are generated via phase
   modulation of the carrier field. The Michelson interferometer
-  rotates the differential carrier field (CR) by 90 deg, but leaves
+  rotates the differential carrier field (CR) by $90^\circ$, but leaves
   all other fields the same, including the RF sidebands and the
   contrast defect (CD). The result is that at the output port, the RF
   sidebands are amplitude modulation (AM) on the carrier, yet continue
@@ -137,7 +144,8 @@ measurement of the imbalance (from several years ago) is shown in
 Figure~\ref{fig:Hildscan}. Currently, $\epsilon=0.15$. The contrast
 defect, commonly quoted as $1/\eta$, can be measured by comparing the
 power transmitted through the OMC with and without the dark fringe
-offset. The contrast defect is approximately 5\%.
+offset. It arises from asymmetry in the reflectivity of each arm and
+is approximately 5\%.
 
 \begin{figure}
 \begin{centering}
@@ -169,7 +177,7 @@ phase noise of about $2^\circ$.
 \subsection{Manipulating $\Gamma_{\mathrm{rms}}$}
 We changed the rms phase noise up to a factor of 4 by reducing the
 sideband amplitude and increasing the dark fringe offset. The result
-is an improvement in observed squeezing of 1.9~dB to 2.8~dB.
+is an improvement in the observed squeezing from 1.9~dB to 2.8~dB.
 
 
 
@@ -189,7 +197,7 @@ rms phase noise. Our sensor is not measuring the 35~mrad ($\approx
 \caption{Calibrated squeezer error point (blue curve), measured as the
   beat between the squeezer sidebands and the RF Michelson sidebands
   in reflection of the OMC. We are limited by dark noise (black curve)
-  above 40~kHz.}
+  above 40~kHz. (\textcolor{blue}{verify calibration})}
 \label{fig:sqzEP}
 \end{centering}
 \end{figure}
@@ -200,15 +208,44 @@ rms phase noise. Our sensor is not measuring the 35~mrad ($\approx
 We implement a slow servo called the \emph{noiselock loop} that serves
 to change the squeezing quadrature in order to maximize the strain
 sensitivity. The need for such a servo arises from the existence of
-contrast defect carrier in the OMC transmitted beam. As long as the
-amplitude of the contrast defect remains constant in time, so does the
-squeezing angle. However, when the amount of contrast defect changes,
-so does the angle of the quadrature that produces the best squeezing.
+contrast defect carrier in the OMC transmitted beam. When the
+amplitude of the contrast defect changes in time, so does the angle of
+the quadrature that produces the best squeezing. An example of how
+much drift we observe is shown in Figure~\ref{fig:noiselock}. 
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=\textwidth]{noiselockctrl.pdf}
+\caption{Example of drift of squeezer demodulation phase over the
+  course of a day. \textcolor{blue}{Calibrate to radians!}}
+\label{fig:noiselock}
+\end{centering}
+\end{figure}
 
 
 \section{Higher order modes}
-We test the effect of higher order modes on the squeezing quadrature
-jitter by placing an aperture in the beam path after the OMC. 
+We plan to test the effect of higher order modes on the squeezing
+quadrature jitter by placing an aperture in the beam path after the
+OMC.
+
+Based on the OMC finesse, $g$-factor and FSR, we can calculate the
+amount of higher order modes that are
+transmitted. Table~\ref{tab:HOMtrans} shows that of the first 5 HOMs,
+$n+m=5$ sits closest to the fundamental mode and $0.06\%$ of what's
+incident on the OMC is transmitted.
+
+
+\begin{table}
+\centering
+\caption{OMC mode spacing}
+\begin{tabular}{l| l l l l l}
+\hline
+HOM order ($n+m$) & 1 & 2 & 3 & 4 & 5 \\
+transmission factor (\%) &  0.041 & 0.014 & 0.011 & 0.016 & 0.061 \\
+\hline
+\end{tabular}
+\label{tab:HOMtrans}
+\end{table}
 
 
 
