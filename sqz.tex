@@ -106,7 +106,21 @@ TOTAL & 63.9\% & multiplied in series \\
 The presence of both the carrier contrast defect and the RF sidebands
 in the OMC transmitted light results in jitter of the squeezing
 quadrature. Figure~\ref{fig:AMPM} provides a pictorial view of the
-role of the sidebands in modulating the fields at the output port. 
+role of the sidebands in modulating the fields at the output port.
+The carrier field itself is only amplitude modulated by the sidebands,
+so if were the only field after the OMC, the squeezing quadrature
+angle would not change. In the presence of other fields, the squeezing
+quadrature is determined by the sum of the fields. Changes in the
+quadrature angle are created in three ways:
+\begin{itemize}
+\item phase noise on the contrast defect
+\item amplitude noise on the carrier when contrast defect is present
+\item amplitude noise of the contrast defect (due to changing ifo
+  thermal states)
+\end{itemize}
+Figure~\ref{fig:sqzquad} shows phasors demonstrating these three
+situations.
+
 
 \begin{figure}
 \begin{centering}
@@ -121,6 +135,16 @@ role of the sidebands in modulating the fields at the output port.
 \label{fig:AMPM}
 \end{centering}
 \end{figure}
+
+\begin{figure}
+\begin{centering}
+\includegraphics{/home/kadool/figures/SQZquadrature.pdf}
+\caption{Examples of how jitter of the squeezing quadrature is
+  generated.}
+\label{fig:sqzquad}
+\end{centering}
+\end{figure}
+
 
 Rewriting Eq. 90 from T0900325, the rms fluctuation of the squeezing
 quadrature angle, $\Gamma_{\mathrm{rms}}$, is dependent on the ratio
@@ -150,9 +174,10 @@ is approximately 5\%.
 \begin{figure}
 \begin{centering}
 \includegraphics[width=0.6\textwidth]{Hild_OMCscan.png}
-\caption{Snapshot of a scan of the output port by Stefan Hild showing
-  the sideband imbalance. In this particular plot, $\epsilon=0.23$. It
-  was more recently measured to be $\epsilon = 0.15$.}
+\caption{Snapshot of a scan of the output port by Stefan Hild (thesis)
+  showing the sideband imbalance. In this particular plot,
+  $\epsilon=0.23$. It was more recently measured to be $\epsilon =
+  0.15$.}
 \label{fig:Hildscan}
 \end{centering}
 \end{figure}
@@ -207,7 +232,7 @@ rms phase noise. Our sensor is not measuring the 35~mrad ($\approx
 \subsection{Contrast defect}
 We implement a slow servo called the \emph{noiselock loop} that serves
 to change the squeezing quadrature in order to maximize the strain
-sensitivity. The need for such a servo arises from the existence of
+sensitivity. The need for such a servo (??) arises from the existence of
 contrast defect carrier in the OMC transmitted beam. When the
 amplitude of the contrast defect changes in time, so does the angle of
 the quadrature that produces the best squeezing. An example of how
@@ -217,7 +242,7 @@ much drift we observe is shown in Figure~\ref{fig:noiselock}.
 \begin{centering}
 \includegraphics[width=\textwidth]{noiselockctrl.pdf}
 \caption{Example of drift of squeezer demodulation phase over the
-  course of a day. \textcolor{blue}{Calibrate to radians!}}
+  course of 12 hours. \textcolor{blue}{Calibrate to radians!}}
 \label{fig:noiselock}
 \end{centering}
 \end{figure}
@@ -232,7 +257,13 @@ Based on the OMC finesse, $g$-factor and FSR, we can calculate the
 amount of higher order modes that are
 transmitted. Table~\ref{tab:HOMtrans} shows that of the first 5 HOMs,
 $n+m=5$ sits closest to the fundamental mode and $0.06\%$ of what's
-incident on the OMC is transmitted.
+incident on the OMC is transmitted. 
+
+This does not reflect any coupling of higher order modes into the OMC
+fundamental mode as a result of poor alignment. We can place an upper
+limit on the contribution of higher order modes to squeezer phase
+noise through experiments with changing the sideband and dark fringe
+offset powers.
 
 
 \begin{table}
