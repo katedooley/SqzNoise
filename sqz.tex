@@ -21,22 +21,21 @@
 
 \title{GEO Squeezing Noise Budget}
 \author{Kate Dooley, Hartmut Grote, Henning Vahlbruch (\emph{alphabetical order for now})}
-\date{Feb. 28, 2012}
+%\date{Feb. 28, 2012}
 \begin{document}
 
 \section{Introduction}
-....
 
 
 \section{Overview of squeezing setup}
+squeezer coherent control sidebands, Faraday isolator injection point, ...
 
 
-
-\section{OMC parameters}
-Table~\ref{tab:OMCparams} summarizes the OMC design parameters. Note
-that the sideband transmission numbers ($T_{\mathrm{MI}}$ and
-$T_{\mathrm{SR}}$) should be doubled in practice to account for the
-existence of both upper and lower sidebands.
+Table~\ref{tab:OMCparams} summarizes the current output mode cleaner
+(OMC) design parameters. Note that the sideband transmission numbers
+($T_{\mathrm{MI}}$ and $T_{\mathrm{SR}}$) should be doubled in
+practice to account for the existence of both upper and lower
+sidebands.
 
 \begin{table}
 \centering
@@ -61,98 +60,274 @@ SRC sideband power transmission & $T_{\mathrm{SR}}$ & 2.71 & $\%$ \\
 
 
 
+\section{Reductions to potential squeezing}
+The amount of squeezing that can be achieved with an interferometer is
+a function of three things:
+\begin{enumerate}
+\item level of injected squeezing
+\item optical losses (including mode-matching and alignment)
+\item phase noise
+\end{enumerate}
+
+\subsection{Injected squeezing}
+The level of injected squeezing is of course limited to the
+performance of the squeezer itself. The level of squeezing generated
+by the squeezer can be controlled during interferometer operations by
+changing the setpoint for the Mach-Zehnder (MZ) in the squeezing
+box. A PZT on one of the MZ mirrors changes the MZ length and
+therefore controls the amount of green light transmitted through the
+MZ to match the requested setpoint. This green light (the pump field)
+is sent directly into the OPA cavity to generate the correlated 1064
+nm photons. The degree of squeezing is a non-linear function of the
+pump power.
+
+A maximum pump power of 45 mW, or 11 dB of generated squeezing, may be
+used with the GEO squeezer. However, in finding a balance between the
+benefits of more squeezing and the disadvantages of anti-squeezing
+(due to phase noise), the practical upper-limit on pump power was
+placed at 35 mW, or 10.5 dB of generated squeezing [Ref. Khalaidovski
+  thesis]. (\textcolor{blue}{We should re-evaluate this limit.})
+
+
+\subsection{Optical losses}
+Any time the squeezed vacuum field experiences an optical loss, the
+loss is replaced by the classic vacuum field:
+\begin{equation}
+V^\prime= VT - L
+\end{equation}
+Here, $V$ is the initial variance of the squeezed state, $T$ the optical
+efficiency, and $L$ the optical losses, where
+$T+L=1$. Figure~\ref{fig:sqzpumplosses} shows the how the degree of
+squeezing is degraded as a function of optical efficiency for several
+different pump powers.
+
+\begin{figure}
+\begin{centering}
+\includegraphics{/home/kadool/GEOHF/projects/sqz_pump_eff.pdf}
+\caption{The expected amount of observed squeezing based on the green
+  pump power and the optical efficiency of the squeezed beam path. This
+  model assumes no phase noise.}
+\label{fig:sqzpumplosses}
+\end{centering}
+\end{figure}
+
+
+\subsection{Phase noise}
+
+
+
+
+
 \section{Optical losses}
 Table~\ref{tab:losses} summarizes our optical loss budget for the
-squeezer path. We find that only 64\% of the squeezed light sent into
-the interferometer makes it to the detection PD. This optical loss
-immediately reduces the maximum possible observed squeezing from 10~dB
-to 4~dB (\textcolor{blue}{make figure!}).
-
+squeezer path. We find that only 63\% of the squeezed light sent into
+the interferometer makes it to the detection PD. With the nominal 35 mW pump power, or 10.5 dB injected squeezing, these optical losses alone reduce the maximum possible level of achieved squeezing to 3.7 dB. 
 
 \begin{table}
 \centering
-\caption{Optical losses of squeezed beam.}
-\begin{tabular}{l l l} %r@{}l r@{}l
+\caption{Optical losses of squeezed beam. The resulting transmission
+  upon multiplying the optical efficiencies in series is 63\%.}
+\begin{tabular}{l l l l} %r@{}l r@{}l
 \hline
-component & power loss & notes \\
+component & power loss & comment \\
 \hline
-squeezer path Faraday & 3.3\% & \\
-output port Faraday & 3.3\% & guess, experienced twice \\
-BDO1 transmission & 1\% & experienced twice \\
-MSR transmission (when locked) & 1\% & above 1~kHz \\
+squeezer path Faraday & 3.3\% & 1.5\% \\
+output port Faraday & 3.3\% $\times$ 2 & guess \\
+BDO1 transmission & 1\% $\times$ 2 & \\
+SR cavity (when locked) & 1\% & above 1 kHz \\
 OMC mode-matching loss & 6\% & \\
+squeezer mode-matching loss & 2\% & \\
 OMC AR coating loss & 1\% & \\
-OMC internal losses & 14\% & deduced from other measurements \\ 
-OMC trans PD detection loss & 9\% & \\
-\hline
-TOTAL & 63.9\% & multiplied in series \\
+OMC internal losses & 14\% & deduced from other measurements \\
+OMC trans PD detection loss & 9\% & Perkin-Elmer \\
 \hline
 \end{tabular}
 \label{tab:losses}
 \end{table}
 
-
 \begin{figure}
 \begin{centering}
-\includegraphics{/home/kadool/figures/SQZpowerbudget.pdf}
+\includegraphics[width=0.8\textwidth]{/home/kadool/figures/opticallosses.pdf}
 \caption{Optical losses in the squeezer path.}
 \label{fig:powerbudget}
 \end{centering}
 \end{figure}
 
+The single greatest source of loss is the OMC and second is the
+detection PD. The OMC is known to have excessive losses due to poor AR
+coatings and most likely dirty mirrors and can in principle be easily
+improved with new optics. The current Perkin-Elmer photodiode is also
+a high-loss component that can be replaced with a much better
+specimen. The polarizing beam splitters of the Faraday isolators each
+have approximately $1\%$ loss and with investigation into better
+polarizers, may be improved. Details of short-term goals for
+improvement of optical efficiency are found in
+Section~\ref{sec:future}.
 
 
-\section{Phase noise from RF sidebands}
-The presence of both the carrier contrast defect and the RF sidebands
-in the OMC transmitted light results in jitter of the squeezing
-quadrature. Figure~\ref{fig:AMPM} provides a pictorial view of the
-role of the sidebands in modulating the fields at the output port.
-The carrier field itself is only amplitude modulated by the sidebands,
-so if were the only field after the OMC, the squeezing quadrature
-angle would not change. In the presence of other fields, the squeezing
-quadrature is determined by the sum of the fields. Changes in the
-quadrature angle are created in three ways:
-\begin{itemize}
-\item phase noise on the contrast defect
-\item amplitude noise on the carrier when contrast defect is present
-\item amplitude noise of the contrast defect (due to changing ifo
-  thermal states)
-\end{itemize}
-Figure~\ref{fig:sqzquad} shows phasors demonstrating these three
-situations.
 
+\section{Phase noise}
+The squeezing ellipse orientation must match the angle of the
+interferometer output field to make the best use of the squeezed
+field. The interferometer output field is ideally made up of only the
+local oscillator for the gravitational-wave signal, the dark fringe
+offset. However, in practice, other light is present and contributes
+to the shot noise at the detector. The power of squeezing is that it
+can reduce the shot noise of the light at the output port, no matter
+what it is made of. Therefore, the sum of the phase jitters of all
+fields must be considered. In addition, it should be pointed out that
+only the rms phase noise matters, not the shape of the frequency
+content.
+
+
+\subsection{Phase noise sensing and control}
+There are several options for how to implement a squeezer longitudinal
+phase servo. First, there are three choices for how to generate such
+an error signal. ...
+
+Second, there are choices for how to feedback a control signal. ...
+
+Our current setup for creating a squeezer to GEO output relative phase
+error signal uses the beat of the squeezer sidebands with the
+Michelson sidebands in reflection of the OMC which are at 15.2~MHz and
+14.9~MHz, respectively. A sample error point spectrum is shown in
+Figure~\ref{fig:sqzEP} and demonstrates that we measure only 5 mrad
+rms residual phase noise. We also inject a line at 6500 Hz to monitor
+the signal-to-noise of the error signal.
+
+\begin{figure}
+\begin{centering}
+\includegraphics{/home/kadool/GEOHF/2012/03/17/sqzEP_seminar.pdf}
+\caption{Calibrated squeezer phase error point (red curve), measured
+  as the beat between the squeezer control sidebands and the RF
+  Michelson sidebands in reflection of the OMC. This loop operates
+  with a bandwidth of about 1 kHz and is limited by sensor/shot (blue
+  curve) above 25~kHz. The servo is not gain-limited because the
+  spectrum is so flat such that little to no improvement in rms
+  noise is to be gained by increasing the gain. The residual rms phase
+  noise is 5 mrad.}
+\label{fig:sqzEP}
+\end{centering}
+\end{figure}
+
+
+
+
+
+\subsection{Noiselock}
+We implement a slow servo called the \emph{noiselock loop} that serves
+to change the squeezing quadrature in order to maximize the strain
+sensitivity. The demodulation phase of the longitudinal phase error
+signal is dithered at 11.6~Hz and a band-limited root-mean-square of
+strain is then demodulated at this dither frequency and a control
+signal derived. A schematic of the servo is in
+Figure~\ref{fig:noiselockservo}. The underlying causes for slow phase
+drift is not understood at this time. An example of how much drift we
+observe is shown in Figure~\ref{fig:noiselock}.
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{/home/kadool/figures/noiselock_servo.pdf}
+\caption{Schematic of the noiselock servo. The demodulation phase of
+  the squeezing angle error signal is modulated at $f_0=11.6$ Hz. The
+  band-limited rms of interferometer strain is in turn demodulated at
+  $f_0$ and a derived control signal is in turn sent to the
+  demodulation phase of the squeezing angle error signal.}
+\label{fig:noiselockservo}
+\end{centering}
+\end{figure}
+
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=\textwidth]{/home/kadool/GEOHF/2012/03/16/noiselock_FPcal.pdf}
+\caption{Example of drift of squeezer demodulation phase over the
+  course of 12 hours.}
+\label{fig:noiselock}
+\end{centering}
+\end{figure}
+
+
+
+\subsection{RF frequencies}
+This section is based on work from LIGO T0900325 and evaluates the
+role of the RF sidebands in generating phase jitter of the
+interferometer output field. Understanding the phase noise
+contribution from the RF sidebands is important both because the
+contribution can be large and because the squeezing ellipse
+orientation cannot follow at these frequencies. Phase noise due to the
+RF sidebands may, however, be reduced, as will be discussed shortly.
+
+The dominant fields at the interferometer output port are those from
+the dark fringe offset, the contrast defect, and the RF sidebands. The
+dark fringe offset is the local oscillator for the gravitational-wave
+sidebands in a DC readout configuration and is generated by holding
+the Michelson arms slightly off of the dark fringe at the
+anti-symmetric port. The contrast defect is light that makes it to the
+anti-symmetric port due to asymmetry in the reflectivity of each
+Michelson arm. The RF sidebands are ideally filtered by the OMC, but
+due to limited finesse, some percentage is transmitted.
+
+One of two effects of the RF sidebands on phase jitter comes from the
+fact that the Michelson interferometer rotates the differential
+carrier field by $90^\circ$, but leaves all other fields the same
+(including the RF sidebands and the contrast defect). The result is
+that at the output port, as shown in Figure~\ref{fig:AMPM}, the RF
+sidebands are amplitude modulation (AM) of the dark fringe offset, yet
+continue to be phase modulation (PM) of the contrast defect.
 
 \begin{figure}
 \begin{centering}
 \includegraphics{/home/kadool/figures/AMPM.pdf}
 \caption{The RF sidebands (SB+ and SB-) are generated via phase
   modulation of the carrier field. The Michelson interferometer
-  rotates the differential carrier field (CR) by $90^\circ$, but leaves
-  all other fields the same, including the RF sidebands and the
-  contrast defect (CD). The result is that at the output port, the RF
-  sidebands are amplitude modulation (AM) on the carrier, yet continue
-  to be phase modulation (PM) on the contrast defect.}
+  rotates the differential carrier field by $90^\circ$, but leaves all
+  other fields the same, including the RF sidebands and the contrast
+  defect. The result is that at the output port, the RF sidebands are
+  amplitude modulation (AM) of the dark fringe offset, yet continue to
+  be phase modulation (PM) of the contrast defect.}
 \label{fig:AMPM}
 \end{centering}
 \end{figure}
+
+Because the squeezing quadrature is determined by the sum of the
+fields at the interferometer output, both AM of the dark fringe offset
+and PM of the contrast defect affect the angle that the squeezing
+ellipse orientation must be matched to. Figure~\ref{fig:sqzquad} shows
+phasors depicting these two situations. Should the ratio of dark
+fringe offset to contrast defect amplitude be large, these effects are
+reduced.
 
 \begin{figure}
 \begin{centering}
 \includegraphics{/home/kadool/figures/SQZquadrature.pdf}
 \caption{Examples of how jitter of the squeezing quadrature is
-  generated.}
+  generated. \textcolor{blue}{replace!}}
 \label{fig:sqzquad}
 \end{centering}
 \end{figure}
 
+The second effect of the RF sidebands on phase jitter arises when the
+upper and lower sidebands are unequal in amplitude. Rather than
+produce pure AM on the DFO and PM on the CD, there is some component
+of PM on the DFO and AM on the CD.
 
-Rewriting Eq. 90 from T0900325, the rms fluctuation of the squeezing
-quadrature angle, $\Gamma_{\mathrm{rms}}$, is dependent on the ratio
-of carrier light with signal, $P_{\mathrm{CR}}$, to light without
-signal that is transmitted through the OMC. Examples are the contrast
-defect carrier, $P_{\mathrm{CD}}$, and the sidebands, $P_{\mathrm{SB}}$:
+In summary, changes in the interferometer output phase at RF
+frequencies are created in four ways:
+\begin{itemize}
+\item phase noise of the contrast defect
+\item amplitude noise of the dark fringe offset 
+\item phase noise of the dark fringe offset due to unequal RF sideband amplitudes 
+\item amplitude noise of the contrast defect due to unequal RF sideband amplitudes \textcolor{blue}{(true?)}
+\end{itemize}
+and may be expressed mathematically as in Eq. 90 from T0900325: 
+%the rms fluctuation of the squeezing quadrature angle,
+%$\Gamma_{\mathrm{rms}}$, is dependent on the ratio of carrier light
+%with signal, $P_{\mathrm{CR}}$, to light without signal that is
+%transmitted through the OMC. Examples are the contrast defect carrier,
+%$P_{\mathrm{CD}}$, and the sidebands, $P_{\mathrm{SB}}$:
 \begin{equation}
-\Gamma_{\mathrm{rms}} = \sqrt{\frac{P_{\mathrm{SB}}}{P_{\mathrm{CR}}} \left( \frac{1}{\eta} + \epsilon^2 \frac{1-\eta}{\eta} \right)}
+\Gamma_{\mathrm{rms}} = \sqrt{\frac{P_{\mathrm{SB}}}{P_{\mathrm{CR}}} \left( \frac{1}{\eta} + \epsilon^2 \frac{\eta-1}{\eta} \right)}
 \label{eq:Gammarms}
 \end{equation}
 All powers in this equation are for those transmitted through the OMC,
@@ -163,130 +338,172 @@ and the variables $\eta$ and $\epsilon$ are defined as follows:
 \begin{equation}
 \epsilon = \frac{1}{2}\frac{P_{\mathrm{SB+}}-P_{\mathrm{SB-}}}{P_{\mathrm{SB+}}+P_{\mathrm{SB-}}}
 \end{equation}
+
+
 The sideband imbalance is quantified by $\epsilon$ and a sample
-measurement of the imbalance (from several years ago) is shown in
-Figure~\ref{fig:Hildscan}. Currently, $\epsilon=0.15$. The contrast
+measurement of the imbalance is shown in
+Figure~\ref{fig:modescan}a. Currently, $\epsilon=0.06$. The contrast
 defect, commonly quoted as $1/\eta$, can be measured by comparing the
 power transmitted through the OMC with and without the dark fringe
-offset. It arises from asymmetry in the reflectivity of each arm and
-is approximately 5\%.
+offset. It accounts for approximately 5\% of the power at the output
+port, as seen in Figure~\ref{fig:modescan}b.
 
 \begin{figure}
 \begin{centering}
-\includegraphics[width=0.6\textwidth]{Hild_OMCscan.png}
-\caption{Snapshot of a scan of the output port by Stefan Hild (thesis)
-  showing the sideband imbalance. In this particular plot,
-  $\epsilon=0.23$. It was more recently measured to be $\epsilon =
-  0.15$.}
-\label{fig:Hildscan}
+\includegraphics[width=0.5\textwidth]{/home/kadool/GEOHF/projects/modescan/sidebands.pdf}\includegraphics[width=0.5\textwidth]{/home/kadool/GEOHF/projects/modescan/DFO_noDFO.pdf}
+%\includegraphics[width=0.5\textwidth]{/home/kadool/GEOHF/projects/modescan/contrastdefect.pdf}
+\caption{Mode scan of the output port. The left-hand plot shows the
+  Michelson RF sideband imbalance. A higher-order carrier mode sits on
+  top of the lower sideband, so this figure is created by subtracting
+  the carrier content. The imbalance is $\epsilon = 0.06$. The
+  right-hand plot shows the ratio of contrast defect to carrier power
+  for our typical dark fringe offset. The ratio is about 0.05. The
+  sideband amplitude reduced by a factor of 4.4 from fall 2011 and is
+  the new standard.}
+\label{fig:modescan}
 \end{centering}
 \end{figure}
 
 Figure~\ref{fig:phirms} shows the dependence of phase noise on
-contrast defect for our current sideband imbalance. We expect an rms
-phase noise of about $2^\circ$.
+contrast defect for our current sideband imbalance. We changed the rms
+phase noise up to a factor of 4 by reducing the sideband amplitude and
+increasing the dark fringe offset. The result was .... %an improvement in the
+%observed squeezing from 1.9~dB to 2.8~dB.
+
 
 \begin{figure}
 \begin{centering}
-\includegraphics[width=1.1\textwidth]{/home/kadool/GEOHF/projects/SQZphase/rmsphase.pdf}
-\caption{RMS phase noise as a function of the ratio of carrier to
-  contrast defect in the OMC transmitted beam. The typical operating
-  point for GEO is $P_{\mathrm{CR}}/P_{\mathrm{CD}}=20$, which
-  corresponds to an RMS phase noise of $1.8^\circ$.}
+\includegraphics[width=1.1\textwidth]{/home/kadool/GEOHF/projects/SQZRFphase/RFrmsphase.pdf}
+\caption{RMS phase noise as a function of the ratio of DC offset light
+  to contrast defect light in the OMC transmitted beam. The typical
+  operating point for GEO is $P_{\mathrm{CR}}/P_{\mathrm{CD}}=20$,
+  which corresponds to an RMS phase noise for the Michelson sidebands
+  of 6.7 mrad and 5.5 mrad for the SRC sidebands. The quadrature sum
+  is 8.7 mrad.}
 \label{fig:phirms}
 \end{centering}
 \end{figure}
 
 
 
-\subsection{Manipulating $\Gamma_{\mathrm{rms}}$}
-We changed the rms phase noise up to a factor of 4 by reducing the
-sideband amplitude and increasing the dark fringe offset. The result
-is an improvement in the observed squeezing from 1.9~dB to 2.8~dB.
+\subsection{Higher order modes}
+Role?
+%We plan to test the effect of higher order modes on the squeezing
+%quadrature jitter by placing an aperture in the beam path after the
+%OMC.
+
+%Based on the OMC finesse, $g$-factor and FSR, we can calculate the
+%amount of higher order modes that are
+%transmitted. Table~\ref{tab:HOMtrans} shows that of the first 5 HOMs,
+%$n+m=5$ sits closest to the fundamental mode and $0.06\%$ of what's
+%incident on the OMC is transmitted. Note that this does not reflect
+%any coupling of higher order modes into the OMC fundamental mode as a
+%result of poor alignment.
+
+%We can place an upper limit on the contribution of higher order modes
+%to squeezer phase noise through experiments with changing the sideband
+%and dark fringe offset powers.
+
+
+%\begin{table}
+%\centering
+%\caption{OMC mode spacing}
+%\begin{tabular}{l| l l l l l}
+%\hline
+%HOM order ($n+m$) & 1 & 2 & 3 & 4 & 5 \\
+%transmission factor (\%) & 0.041 & 0.014 & 0.011 & 0.016 & 0.061 \\
+%\hline
+%\end{tabular}
+%\label{tab:HOMtrans}
+%\end{table}
 
 
 
-
-\subsection{Squeezer phase error point}
-Our current setup for creating a squeezer to GEO output relative phase
-error signal uses the beat of the squeezer sidebands with the
-Michelson sidebands in reflection of the OMC which are at 15.2~MHz and
-14.9~MHz, respectively. A sample error point spectra is shown in
-Figure~\ref{fig:sqzEP} and demonstrates that we measure only 5 mrad
-rms phase noise. Our sensor is not measuring the 35~mrad ($\approx
-2^\circ$) predicted by the RF sideband model of Eq.~\ref{eq:Gammarms}.
-
-\begin{figure}
-\begin{centering}
-\includegraphics[width=1.1\textwidth]{/home/kadool/GEOHF/2012/02/16/sqzEP.pdf}
-\caption{Calibrated squeezer error point (blue curve), measured as the
-  beat between the squeezer sidebands and the RF Michelson sidebands
-  in reflection of the OMC. We are limited by dark noise (black curve)
-  above 40~kHz. (\textcolor{blue}{verify calibration})}
-\label{fig:sqzEP}
-\end{centering}
-\end{figure}
-
-
-
-\subsection{Contrast defect}
-We implement a slow servo called the \emph{noiselock loop} that serves
-to change the squeezing quadrature in order to maximize the strain
-sensitivity. The need for such a servo (??) arises from the existence of
-contrast defect carrier in the OMC transmitted beam. When the
-amplitude of the contrast defect changes in time, so does the angle of
-the quadrature that produces the best squeezing. An example of how
-much drift we observe is shown in Figure~\ref{fig:noiselock}. 
-
-\begin{figure}
-\begin{centering}
-\includegraphics[width=\textwidth]{noiselockctrl.pdf}
-\caption{Example of drift of squeezer demodulation phase over the
-  course of 12 hours. \textcolor{blue}{Calibrate to radians!}}
-\label{fig:noiselock}
-\end{centering}
-\end{figure}
-
-
-\section{Higher order modes}
-We plan to test the effect of higher order modes on the squeezing
-quadrature jitter by placing an aperture in the beam path after the
-OMC.
-
-Based on the OMC finesse, $g$-factor and FSR, we can calculate the
-amount of higher order modes that are
-transmitted. Table~\ref{tab:HOMtrans} shows that of the first 5 HOMs,
-$n+m=5$ sits closest to the fundamental mode and $0.06\%$ of what's
-incident on the OMC is transmitted. 
-
-This does not reflect any coupling of higher order modes into the OMC
-fundamental mode as a result of poor alignment. We can place an upper
-limit on the contribution of higher order modes to squeezer phase
-noise through experiments with changing the sideband and dark fringe
-offset powers.
-
+\subsection{Total known phase noise}
+Taking the measured and anticipated rms phase noises at different
+frequencies and adding them incoherently, we find that we have a total
+known phase noise of 10 mrad rms. The summary of phase noises is shown
+in Table~\ref{tab:phasenoises}.
 
 \begin{table}
 \centering
-\caption{OMC mode spacing}
-\begin{tabular}{l| l l l l l}
+\caption{Measured and calculated phase noises. The quadrature sum is 10 mrad rms.}
+\begin{tabular}{l l l}
 \hline
-HOM order ($n+m$) & 1 & 2 & 3 & 4 & 5 \\
-transmission factor (\%) &  0.041 & 0.014 & 0.011 & 0.016 & 0.061 \\
+source & rms phase [mrad]\\
+\hline
+error point & 5 \\
+14.9 MHz sidebands & 6.7 \\
+9 MHz sidebands & 5.5 \\
 \hline
 \end{tabular}
-\label{tab:HOMtrans}
+\label{tab:phasenoises}
 \end{table}
 
 
 
+\section{Expected observed squeezing}
+Based on our measurements of the optical losses and phase noise, we
+can predict the best possible achieveable squeezing level with the
+interferometer output. With a green pump power of about 17 mW such
+that the injected squeezing level is 8 dB and 37\% losses, the best
+squeezing possible is 3.2 dB. Phase noise of 10 mrad has a negligible
+effect. As of early March, we measured 2.9 dB, leaving a 0.3 dB gap,
+which in fact is explained by other contributing noise sources as seen
+in the next section. This full accounting of observed squeezing is not
+always realized, however. Currently, as of mid-April, for example,
+there remains a gap.
+
+
+\section{Other noise sources}
+Other noise sources like dark noise and laser amplitude noise limit
+the amount of detected squeezing. Figure~\ref{fig:HFnoises} ...
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=1.0\textwidth]{/home/kadool/projects/HFnoise.pdf}
+\caption{High frequency noises that result in a lower effective
+  squeezing of strain than is actually achieved. In this example, shot
+  noise is actually reduced by 2.4 dB, but the other noise sources
+  reduce the effective squeezing to 2.0 dB.}
+\label{fig:HFnoises}
+\end{centering}
+\end{figure}
+
+
+
 \section{Ideas for improvements}
+\label{sec:future}
 
 \begin{enumerate}
+\item better OMC
+\item 2 PDs
 \item 2nd OMC
-\item 
 
 \end{enumerate}
+
+
+
+\begin{table}
+\centering
+\caption{Optical losses of squeezed beam.}
+\begin{tabular}{l l l l} %r@{}l r@{}l
+\hline
+component & power loss & 6-month goal \\
+\hline
+squeezer path Faraday & 3.3\% & 1.5\% \\
+output port Faraday & 3.3\% $\times$ 2 & 1.5\% $\times$ 2 \\
+BDO1 transmission & 1\% $\times$ 2 & 1\% $\times$ 2 \\
+SR cavity (when locked) & 1\% & 1\% \\
+OMC mode-matching loss & 6\% & 2\% \\
+squeezer mode-matching loss & 2\% & 2\% \\
+OMC AR coating loss & 1\% & 0.1\% \\
+OMC internal losses & 14\% & 5\% \\
+OMC trans PD detection loss & 9\% & 3\% \\
+\hline
+\end{tabular}
+\label{tab:losses_goal}
+\end{table}
 
 
 
