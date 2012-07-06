@@ -272,10 +272,24 @@ content.
 
 \subsection{Phase noise sensing and control}
 There are several options for how to implement a squeezer longitudinal
-phase servo. First, there are three choices for how to generate such
-an error signal. ...
+phase servo. First, there are four choices for how to generate such
+an error signal:
+\begin{itemize}
+\item carrier against CCSBs in OMC trans (OMC can't have too high a finesse!)
+\item carrier against CCSBs at pick-off before OMC
+\item MI RF SBs against CCSBs in OMC refl
+\item MI RF SBs against CCSBs at pick-off before OMC
+\end{itemize}
+We are currently using option 4, and will soon have the electronics to
+test out option 1.
 
-Second, there are choices for how to feedback a control signal. ...
+Second, there are choices for how to feedback a control signal:
+\begin{itemize}
+\item add to 80 MHz frequency generator used for demodulation of
+  sqz. to GEO laser PLL loop
+\item PZT in the squeezer injection path
+\end{itemize}
+
 
 Our current setup for creating a squeezer to GEO output relative phase
 error signal uses the beat of the squeezer sidebands with the
@@ -546,13 +560,25 @@ level. We can measure the total rms phase noise by mapping out the
 curve of Figure~\ref{fig:sqz_generated_noises}. However, this will be
 difficult if the total phase noise happens to be very small ($< 10$
 mrad) because then the effect of phase noise is only measurable at
-very high pump powers. At the moment, we are limited to at most only
-approx. 25~mW pump power and we know of only approx. 10~mrad phase
-noise. A method of putting an upper limit on the total phase noise is
-to purposefully increase it by a known amount (i.e. keep amplitude of
-MI RF sidebands at nominal locking level) and measure the squeezing
-versus pump power curve. This will also provide a way of calibrating
-the CDS counts of pump power into mW.
+very high pump powers. At the moment, we are limited to at most
+approximately 35~mW pump power and we know of only approximately
+10~mrad phase noise. A method of putting an upper limit on the total
+phase noise is to purposefully increase it by a known amount
+(i.e. keep amplitude of MI RF sidebands at nominal locking level) and
+measure the squeezing versus pump power curve. A first set of
+measurements are shown in Figure~\ref{fig:sqzpump}. Our optical loss
+budget predicts only 40\% losses and our known phase noises amount to
+10 mrad, but this data is more consistent with 50\% optical losses and
+70 mrad phase noise.
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=1.0\textwidth]{/home/kadool/GEOHF/2012/07/06/sqz_pump.pdf}
+\caption{First look at a measurement of squeezing vs. pump power.}
+\label{fig:sqzpump}
+\end{centering}
+\end{figure}
+
 
 
 \section{Expected observed squeezing}
